@@ -1,5 +1,5 @@
 ---
-title: Hello world!
+title: Home
 date: 2022-10-10
 ---
 
