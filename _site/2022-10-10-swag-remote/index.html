@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Hvordan få fjerntilgang til Homeassistant med duckdns og swag.</title>
+
+  
+  <meta name="author" content="Erling Paulsen">
+  
+
+  <meta name="description" content="For å få tilgang til HomeAssistant utenfor ditt eget lokalnett, så har man to alternativer: Homeassistant cloud(Nabu casa) Nabu casa opptrer som en proxy til din lokale HomeAssistant-installasjon. Skybasert, og koster USD 7,50 per måned. Svært enkel å sette opp, man trenger stort sett bare å klikke på “Enable” i...">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Erlings dingseri" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Erlings dingseri">
+  <meta property="og:title" content="Hvordan få fjerntilgang til Homeassistant med duckdns og swag.">
+  <meta property="og:description" content="For å få tilgang til HomeAssistant utenfor ditt eget lokalnett, så har man to alternativer: Homeassistant cloud(Nabu casa) Nabu casa opptrer som en proxy til din lokale HomeAssistant-installasjon. Skybasert, og koster USD 7,50 per måned. Svært enkel å sette opp, man trenger stort sett bare å klikke på “Enable” i...">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Erling Paulsen">
+  <meta property="og:article:published_time" content="2022-10-10T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2022-10-10-swag-remote/">
+  <link rel="canonical" href="http://localhost:4000/2022-10-10-swag-remote/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@erlpa">
+  <meta name="twitter:creator" content="@erlpa">
+
+  <meta property="twitter:title" content="Hvordan få fjerntilgang til Homeassistant med duckdns og swag.">
+  <meta property="twitter:description" content="For å få tilgang til HomeAssistant utenfor ditt eget lokalnett, så har man to alternativer: Homeassistant cloud(Nabu casa) Nabu casa opptrer som en proxy til din lokale HomeAssistant-installasjon. Skybasert, og koster USD 7,50 per måned. Svært enkel å sette opp, man trenger stort sett bare å klikke på “Enable” i...">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Erlings dingseri</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/om">Om</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "Hvordan få fjerntilgang til Homeassistant med duckdns og swag.", \
+          "category" : "", \
+          "url"      : "/2022-10-10-swag-remote/", \
+          "date"     : "October 10, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Min blogg", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Om", \
+          "category" : "page", \
+          "url"      : "/om/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Hvordan få fjerntilgang til Homeassistant med duckdns og swag.</h1>
+          
+
+          
+            <span class="post-meta">Posted on October 10, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>For å få tilgang til HomeAssistant utenfor ditt eget lokalnett, så har man to alternativer:</p>
+
+<ol>
+  <li>
+    <p>Homeassistant cloud(Nabu casa)
+Nabu casa opptrer som en proxy til din lokale HomeAssistant-installasjon.
+Skybasert, og koster USD 7,50 per måned.  Svært enkel å sette opp, man trenger stort sett bare å klikke på “Enable” i GUI-et til HomeAssistant og legge inn kredittkort så er man i gang.</p>
+  </li>
+  <li>
+    <p>Ordne selv.
+For å kunne nå din HomeAssistant-installasjon fra internett på en trygg måte, så er det en del betingelser som må være på plass:</p>
+    <ul>
+      <li>Dynamisk DNS-oppføring.</li>
+      <li>TLS/SSL-sertifikat for å få kryptert trafikk.</li>
+      <li>Brannmuren i hjemmenettet ditt må åpnes opp i relevante porter.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Det høres komplisert ut, men egentlig så er det ikke uoverkommelig å gjennomføre.</p>
+
+<p>Du må ha følgende på plass:</p>
+<ul>
+  <li>Brukernavn og passord til ruteren din, og ruteren må ha mulighet til å sette åpne opp brannmur, samt sette opp videresending av åpne porter(port forwarding)</li>
+  <li>En datamaskin som kan kjøre docker-containere, kan gjerne være samme maskin som kjører HomeAssistant.</li>
+</ul>
+
+<h1 id="dynamisk-dns-oppføring">Dynamisk DNS-oppføring</h1>
+
+<p>Det finnes flere leverandører av dynamisk DNS-oppføringer, blant annet dyndns, no-ip, duckdns med flere.
+HomeAssistant har innebygget støtte for duckdns, så da er det naturlig å velge denne.
+Duckdns gir deg inntil fem gratis domeneoppføringer.  All bruk av dynamisk dns krever en klient som er installert lokalt, som med jevne mellomrom gir leverandør beskjed om hvilken ekstern ip-adresse ruteren har, slik at leverandøren av DNS-oppslaget kan holde seg oppdatert med hvilken ip-addresse DNS-oppføringen skal peke på.</p>
+
+<p>Som tidligere nevnt så støtter HomeAssistant duckdns og kan agere som klient mot den, og sørger da automatisk for å holde DNS-oppføring i synk med ekstern ip-adresse.</p>
+
+<p>Fremgangsmåte:</p>
+
+<ol>
+  <li>Gå til https://duckdns.org i en nettleser, logg inn med Github,Google,Twitter eller Reddit-bruker.  Eller lag din egen bruker.</li>
+  <li>Finn deg ett unikt subdomene-navn, og klikk på “add domain”</li>
+  <li>Noter ned subdomene-navn og access-token, du vil trenge dem litt senere.</li>
+</ol>
+
+<p><img src="/assets/img/duckdns.png" alt="Duckdns illustrasjon" /></p>
+
+<ol>
+  <li>Åpne opp <code class="language-plaintext highlighter-rouge">configuration.yaml</code> i din HomeAssistant-installasjon, og legg til følgende:</li>
+</ol>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="na">http</span><span class="pi">:</span>
+  <span class="na">ip_ban_enabled</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">login_attempts_threshold</span><span class="pi">:</span> <span class="m">3</span>
+  <span class="na">use_x_forwarded_for</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">trusted_proxies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">192.168.1.0/24</span>  <span class="c1"># Local Lan, endre denne dersom din ruter ikke har 192.168.1.0/24 som nett.</span>
+    <span class="pi">-</span> <span class="s">172.10.0.0/24</span>  <span class="c1"># Docker network</span>
+<span class="na">duckdns</span><span class="pi">:</span>
+  <span class="na">domain</span><span class="pi">:</span> <span class="s2">"</span><span class="s">DITT-DOMENE"</span>
+  <span class="na">access_token</span><span class="pi">:</span> <span class="s2">"</span><span class="s">DITT_DUCKDNS_ACCESS_TOKEN_HER"</span>
+
+</code></pre></div></div>
+<p><strong>NB!!</strong> domain skal kun inneholde det du valgte i subdomain i pkt 2, ikke hele domenet.</p>
+
+<p>Gjør en restart av HomeAssistant.</p>
+
+<p>Vent noen minutter, og gjør følgende fra et kommandolinjevindu:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ping DITT-DOMENE.duckdns.org
+
+</code></pre></div></div>
+
+<p>Får du svar tilbake, så har du nå opprettet en permanent DNS-oppføring som peker på hjemmenettet ditt.</p>
+
+<h2 id="port-forwarding">Port-forwarding</h2>
+
+<p>Før vi kan begynne å bruke HomeAssistant fra utsiden av lokalnettet, så må det åpnes opp for det i brannmuren.
+Siden vi skal kjøre over TLS/SSL, så må port 443 åpnes opp i brannmuren for innkommende TCP.
+I tillegg så må de to portene videresendes(port-forwardes) til en maskin i ditt lokalnett som kan kjøre docker.
+Det kan gjerne være samme maskin som kjører HomeAssistant, den dockercontaineren vi skal sette opp er veldig lettvekts.</p>
+
+<p>Hvordan man åpner opp brannmur og setter opp videresending av porter varierer fra ruter til ruter, konsulter manualen til ruteren din dersom du får problemer her.</p>
+
+<p>Lag en fil i en mappe, kall denne for <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> , og gi den følgende innhold:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">swag</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/linuxserver/swag</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">swag</span>
+    <span class="na">cap_add</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">NET_ADMIN</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PUID=1001</span>
+      <span class="pi">-</span> <span class="s">PGID=1001</span>
+      <span class="pi">-</span> <span class="s">TZ=Europe/Berlin</span>
+      <span class="pi">-</span> <span class="s">URL=DITT-DOMENE.duckdns.org</span>
+      <span class="pi">-</span> <span class="s">VALIDATION=duckdns</span>
+      <span class="pi">-</span> <span class="s">DUCKDNSTOKEN=DITT-DUCKDNS-TOKEN</span>
+      <span class="pi">-</span> <span class="s">SUBDOMAINS=wildcard</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./homeassistant.subdomain.conf:/config/nginx/proxy-confs/homeassistant.subdomain.conf</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">443:443</span>
+      <span class="pi">-</span> <span class="s">80:80</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+</code></pre></div></div>
+
+<p>Erstatt <code class="language-plaintext highlighter-rouge">DITT-DOMENE</code> og <code class="language-plaintext highlighter-rouge">DITT-DUCKDNS-TOKEN</code> med dine verdier.
+I tillegg så oppretter du en fil til, kall denne for <code class="language-plaintext highlighter-rouge">homeassistant.subdomain.conf</code>, og gi den følgende innhold:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name homeassistant.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    location / {
+
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app IP_TIL_DIN_HA_INSTALLASJON;
+        set $upstream_port 8123;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
+    location ~ ^/(api|local|media)/ {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app IP_TIL_DIN_HA_INSTALLASJON;
+        set $upstream_port 8123;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+}
+</code></pre></div></div>
+
+<p>Erstatt <code class="language-plaintext highlighter-rouge">IP_TIL_DIN_HA_INSTALLASJON</code> med ip-adresse til maskinen som kjører HomeAssistant.</p>
+
+<p><strong>NB!!</strong> Denne filen skal inn i en linux-container, hvis du lager denne filen på en windowsmaskin så må du forsikre deg om at linjeavslutningene er LF, ikke CRLF.</p>
+
+<p>Lagre filen(etter å ha forsikret deg om at linjeavslutningene er LF), og kjør <code class="language-plaintext highlighter-rouge">docker-compose up -d</code>
+Første gang dette gjøres, så lastes containeren ned, containeren vil kontakte letsencrypt for å få et SSL-sertifikat, og sette opp dette.  Dette kan ta noen minutter.  Du kan følge med på progresjonen med å skrive <code class="language-plaintext highlighter-rouge">docker-compose logs swag -f</code></p>
+
+<p>Når loggfilen til slutt skriver ut noe slikt, så er den klar:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>swag             | [ls.io-init] done.
+swag             | s6-rc: info: service 99-ci-service-check successfully started
+swag             | Server ready
+</code></pre></div></div>
+
+<p>swag fungerer i dette tilfellet som api-gateway og ssl-terminator.  Det vil si at alle kall som kommer inn til den som starter med https://homeassistant.[ditt_domene].duckdns.org vil bli videresendt til http://ip-til-homeassistant-server:8123</p>
+
+<p>Hvis alle stegene ovenfor er gjort riktig, så skal du nå kunne gå i en nettleser til
+https://homeassistant.ditt-domene.duckdns.org
+(Erstatt ditt-domene med domenet du registrerte hos duckdns)</p>
+
+<p>(PS: Hvis du ikke får kontakt med homeassistant, så kan det hende at ruteren din ikke støtter loopback.  Forsøk da å navigere til url-en fra en mobil som ikke er tilkoblet wifi.)</p>
+
+<p>Gratulerer, du har nå en HomeAssistant-installasjon som er tilgjengelig fra det store internett!</p>
+
+      </article>
+
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Hvordan+f%C3%A5+fjerntilgang+til+Homeassistant+med+duckdns+og+swag.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-10-10-swag-remote%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-10-10-swag-remote%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-10-10-swag-remote%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:erling.paulsen@hotmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/epaulsen" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/erlpa" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Erling Paulsen
+        &nbsp;&bull;&nbsp;
+      
+      2022
+
+      
+        &nbsp;&bull;&nbsp;
+        <span class="author-site">
+          <a href="http://localhost:4000/">epaulsen.github.io</a>
+        </span>
+      
+
+      
+
+      
+
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    
+    <title>Erlings dingseri</title>
+    
+    
+    <description>Erlings dingseri</description>
+    
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+      <item>
+        <title>Hvordan få fjerntilgang til Homeassistant med duckdns og swag.</title>
+        <description>
+          
+          For å få tilgang til HomeAssistant utenfor ditt eget lokalnett, så har man to alternativer: Homeassistant cloud(Nabu casa) Nabu casa opptrer som en proxy til din lokale HomeAssistant-installasjon. Skybasert, og koster USD 7,50 per måned. Svært enkel å sette opp, man trenger stort sett bare å klikke på “Enable” i...
+        </description>
+        <pubDate>Mon, 10 Oct 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-10-10-swag-remote/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-10-10-swag-remote/</guid>
+      </item>
+    
+  </channel>
+</rss>
