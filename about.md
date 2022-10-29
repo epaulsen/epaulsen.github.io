@@ -1,8 +1,7 @@
 ---
 title: About
-date: 2022-10-10
+date: 2022-10-29
 ---
 
-*Who*
-Erling Paulsen (he/him), software developer, tinkerer, likes to fiddle with home automation.
-Most of the content here will probably be related to home assistant, Node-Red, MQTT and so on.
+Erling Paulsen, systemutvikler, far til to egne og stefar til to andre.
+Hobbynerd som skriver litt om hjemmeautomasjon og det som ellers faller meg inn.
