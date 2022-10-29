@@ -1,8 +1,9 @@
 ---
-title: "Hvordan få fjerntilgang til Homeassistant med duckdns og swag."
+title: "Homeassistant tilgang fra internett."
 subtitle:
 date: 2022-10-10
 layout: post
+tags: homeassistant docker
 ---
 
 For å få tilgang til HomeAssistant utenfor ditt eget lokalnett, så har man to alternativer:
@@ -73,7 +74,7 @@ Får du svar tilbake, så har du nå opprettet en permanent DNS-oppføring som p
 
 Før vi kan begynne å bruke HomeAssistant fra utsiden av lokalnettet, så må det åpnes opp for det i brannmuren.
 Siden vi skal kjøre over TLS/SSL, så må port 443 åpnes opp i brannmuren for innkommende TCP.
-I tillegg så må de to portene videresendes(port-forwardes) til en maskin i ditt lokalnett som kan kjøre docker.
+I tillegg så port 443 videresendes(port-forwardes) til en maskin i ditt lokalnett som kan kjøre docker.
 Det kan gjerne være samme maskin som kjører HomeAssistant, den dockercontaineren vi skal sette opp er veldig lettvekts.
 
 Hvordan man åpner opp brannmur og setter opp videresending av porter varierer fra ruter til ruter, konsulter manualen til ruteren din dersom du får problemer her.
@@ -159,6 +160,7 @@ swag fungerer i dette tilfellet som api-gateway og ssl-terminator.  Det vil si a
 
 Hvis alle stegene ovenfor er gjort riktig, så skal du nå kunne gå i en nettleser til
 https://homeassistant.ditt-domene.duckdns.org
+
 (Erstatt ditt-domene med domenet du registrerte hos duckdns)
 
 (PS: Hvis du ikke får kontakt med homeassistant, så kan det hende at ruteren din ikke støtter loopback.  Forsøk da å navigere til url-en fra en mobil som ikke er tilkoblet wifi.)

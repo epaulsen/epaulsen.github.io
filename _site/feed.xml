@@ -12,7 +12,7 @@
     
     
       <item>
-        <title>Hvordan få fjerntilgang til Homeassistant med duckdns og swag.</title>
+        <title>Homeassistant tilgang fra internett.</title>
         <description>
           
           For å få tilgang til HomeAssistant utenfor ditt eget lokalnett, så har man to alternativer: Homeassistant cloud(Nabu casa) Nabu casa opptrer som en proxy til din lokale HomeAssistant-installasjon. Skybasert, og koster USD 7,50 per måned. Svært enkel å sette opp, man trenger stort sett bare å klikke på “Enable” i...
